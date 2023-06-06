@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shared_prefernces">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="shared_prefernces"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="true"
         <activity
             android:name=".MainActivity"
             android:exported="true"

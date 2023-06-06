@@ -1,11 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_prefernces/productlist.dart';
+import 'package:shared_prefernces/screens/home/controller/home_imagepage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,13 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home:
             // Login()
-            SplashScreen());
+            const ProductList());
   }
 }
 
@@ -39,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 3), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       var token = pref.getString('token');
@@ -58,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: FlutterLogo(),
       ),
     );
@@ -108,14 +115,14 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login Page"),
+        title: const Text("Login Page"),
       ),
       body: Center(
         child: ElevatedButton(
             onPressed: () {
               login();
             },
-            child: Text("Login Button")),
+            child: const Text("Login Button")),
       ),
     );
   }
@@ -200,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               loading == true
-                  ? Text("Loading...")
+                  ? const Text("Loading...")
                   : ListView.builder(
                       shrinkWrap: true,
                       itemCount: universityList.length,
@@ -218,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // getData();
         },
         tooltip: 'Increment',
-        label: Text("Logout"),
+        label: const Text("Logout"),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
